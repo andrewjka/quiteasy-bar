@@ -1,0 +1,141 @@
+// colors
+$fg-color: black;
+$bg-color-active: rgba(255, 255, 255, 0.94);
+$bg-color-inactive: rgba(255, 255, 255, 0.86);
+$accent-color: rgba(230, 230, 230, 1);
+// borders
+$border-color-active: rgba(153, 153, 153, 1);
+$border-color-inactive: rgba(193, 193, 193, 1);
+$border-radius: 8px;
+// margins
+$vertical-padding: 6px;
+$horizontal-padding: 4px;
+// animation
+$animation-speed-smooth: 1.280s;
+$animation-speed-quick: 0.512s;
+
+.Canvas {
+    background: transparent;
+
+    // properties for each element
+    * {
+        font-weight: normal;
+        font-family: 'Roboto';
+        font-size: 15px;
+        animation-timing-function: cubic-bezier(0.05, 0.9, 0.1, 1.05);
+        transition-timing-function: cubic-bezier(0.05, 0.9, 0.1, 1.05);
+        transition-duration: $animation-speed-smooth;
+
+        // Resetting the default settings
+        color: $fg-color;
+        padding: 0;
+        border-radius: 0px;
+        background: transparent;
+
+        &:hover, &:active, &:checked, &:focus {
+            background-image: none;
+            box-shadow: none;
+            text-shadow: none;
+            -gtk-icon-effect: none;
+            opacity: 1;
+        }
+
+        button {
+            border-radius: 8px;
+            padding: 4px;
+            transition-duration: $animation-speed-quick;
+
+            &:hover {
+                background: transparent;
+                box-shadow: 0 0 1px 1px rgba(26, 26, 26, 0.16),
+                inset 0 0 2px 1px rgba(256, 256, 256, 0.16);
+            }
+
+            &:active {
+                background: $accent-color;
+            }
+
+            &.active
+            {
+                box-shadow: 0 0 1px 1px rgba(26, 26, 26, 0.16),
+                inset 0 0 2px 1px rgba(256, 256, 256, 0.16);
+            }
+        }
+
+    }
+
+    // technically these css-classes (Layout & Bar) should be one thing, but
+    // eventbox which allows use events can't have itself frame.
+    .Layout {
+        margin: 16px 16px 8px 16px;
+        background: transparent;
+        border-radius: $border-radius;
+        box-shadow: 0 0 4px 3px rgba(26, 26, 26, 0.16);
+    }
+
+    .Bar {
+        background: $bg-color-inactive;
+        border-radius: $border-radius;
+        border: 1px solid $border-color-inactive;
+
+        &:hover {
+            background: $bg-color-active;
+            border: 1px solid $border-color-active;
+        }
+    }
+
+    // wrapper for panel groups (left,center,right) on status bar
+    .Content {
+        padding: 0px 8px 0px;
+    }
+
+    // panels
+    .Group > * {
+        margin: $vertical-padding $horizontal-padding;
+    }
+
+    .LogoFedora-panel {
+        font-size: 28px;
+        margin-right: 12px;
+    }
+
+    .Workspaces-panel {
+        .workspace {
+            // margin-left: 4px;
+            margin-right: 6px;
+
+            .workspace-icon {
+                font-size: 16px;
+            }
+        }
+
+        .focused {
+        }
+    }
+
+    .Tasks-panel {
+        .Task {
+            margin-left: 3px;
+            margin-right: 3px;
+
+            .task-icon {
+                font-size: 26px;
+            }
+
+            .focused {
+            }
+        }
+    }
+
+    .Time-panel {
+    }
+
+    .Date-panel {
+    }
+
+    .Power-panel {
+    }
+
+    .Language-panel {
+    }
+}

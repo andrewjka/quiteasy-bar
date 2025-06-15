@@ -1,0 +1,6 @@
+{
+    "name": "slughtUIbar",
+    "dependencies": {
+        "astal": "/usr/share/astal/gjs"
+    }
+}
