@@ -26,6 +26,7 @@ function Temperature({title, hwmon_path, interval}: TemperatureProps): Gtk.Widge
                    className="Temperature-panel"
                    cursor="pointer"
                    onDestroy={() => temperature.drop()}
+                   tooltipText={title}
                    onClick={() => OnClick()}>
         {bind(temperature).as(temperature => (temperature / 1000).toFixed(1) + icon)}
     </button>
