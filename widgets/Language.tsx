@@ -1,16 +1,16 @@
 import {Gtk} from "astal/gtk3";
-import Hyprland from "gi://AstalHyprland?version=0.1";
+import Hyprctl from "../services/Hyprctl";
+import {bind} from "astal";
 
 function Language(): Gtk.Widget {
-    const hyprland: Hyprland.Hyprland = Hyprland.get_default();
+    const hyprctl = Hyprctl.get_default();
 
     const icon: string = "";
 
-    const output = `RU ${icon}`;
-
     return <button hexpand className="Language-panel"
-                   cursor="pointer">
-        {output}
+                   cursor="pointer"
+                   onClick={() => hyprctl.switch_layout()}>
+        {bind(hyprctl, 'layout').as((layout) => `${layout.toUpperCase()} ${icon}`)}
     </button>
 }
 
