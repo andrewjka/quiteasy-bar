@@ -6,6 +6,7 @@ import Power from "./Power";
 import Date from "./Date";
 import Time from "./Time";
 import Language from "./Language";
+import Temperature from "./Temperature";
 
 
 function Window({monitor, child}: { monitor: Gdk.Monitor, child?: Gtk.Widget }): Gtk.Widget {
@@ -23,7 +24,7 @@ function Window({monitor, child}: { monitor: Gdk.Monitor, child?: Gtk.Widget }):
     </window>
 }
 
-export default function SlightUIBAR(gdkmonitor: Gdk.Monitor): Gtk.Widget {
+export default function QiteasyBar(gdkmonitor: Gdk.Monitor): Gtk.Widget {
     return <Window
         monitor={gdkmonitor}>
         {
@@ -50,6 +51,9 @@ export default function SlightUIBAR(gdkmonitor: Gdk.Monitor): Gtk.Widget {
                     <box hexpand
                          halign={Gtk.Align.END}
                          className={"Group"}>
+                        <Temperature title="CPU"
+                                     hwmon_path="/sys/class/hwmon/hwmon3/temp1_input"
+                                     interval={4}/>
                         <Language/>
                         <Time/>
                         <Date/>
