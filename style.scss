@@ -8,11 +8,11 @@ $border-color-active: rgba(153, 153, 153, 1);
 $border-color-inactive: rgba(193, 193, 193, 1);
 $border-radius: 8px;
 // margins
-$vertical-padding: 6px;
-$horizontal-padding: 4px;
+$vertical-padding-panel: 6px;
+$horizontal-padding-panel: 1px;
 // animation
-$animation-speed-smooth: 1.280s;
-$animation-speed-quick: 0.512s;
+$animation-speed-smooth: 1.536s;
+$animation-speed-quick: 1.024s;
 
 .Canvas {
     background: transparent;
@@ -91,7 +91,7 @@ $animation-speed-quick: 0.512s;
 
     // panels
     .Group > * {
-        margin: $vertical-padding $horizontal-padding;
+        margin: $vertical-padding-panel $horizontal-padding-panel;
     }
 
     .LogoFedora-panel {

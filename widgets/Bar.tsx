@@ -41,7 +41,14 @@ export default function QiteasyBar(gdkmonitor: Gdk.Monitor): Gtk.Widget {
                          halign={Gtk.Align.START}
                          className={"Group"}>
                         <LogoFedora/>
-                        <Workspaces/>
+                        <Workspaces
+                            defaultIcon={''}
+                        defaultWorkspaces={[
+                            {id: 1, icon:''},
+                            {id: 2, icon:''},
+                            {id: 3, icon:''},
+                            {id: 4, icon:''},
+                        ]}/>
                     </box>
                     <box hexpand
                          halign={Gtk.Align.CENTER}

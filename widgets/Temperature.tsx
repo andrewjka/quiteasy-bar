@@ -9,11 +9,11 @@ interface TemperatureProps {
     interval: number;
 }
 
-function Temperature({title, hwmon_path, interval}: TemperatureProps): Gtk.Widget {
+function Temperature(props: TemperatureProps): Gtk.Widget {
     const icon = '°C ';
 
-    const temperature = Variable<number>(0).poll(interval * 1000,
-        ['/bin/bash', '-c', `cat ${hwmon_path}`],
+    const temperature = Variable<number>(0).poll(props.interval * 1000,
+        ['/bin/bash', '-c', `cat ${props.hwmon_path}`],
         (out, prev) => parseInt(out)
     );
 
@@ -26,7 +26,7 @@ function Temperature({title, hwmon_path, interval}: TemperatureProps): Gtk.Widge
                    className="Temperature-panel"
                    cursor="pointer"
                    onDestroy={() => temperature.drop()}
-                   tooltipText={title}
+                   tooltipText={props.title}
                    onClick={() => OnClick()}>
         {bind(temperature).as(temperature => (temperature / 1000).toFixed(1) + icon)}
     </button>

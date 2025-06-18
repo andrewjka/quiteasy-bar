@@ -9,7 +9,7 @@ function Language(): Gtk.Widget {
 
     return <button hexpand className="Language-panel"
                    cursor="pointer"
-                   onClick={() => hyprctl.switch_layout()}>
+                   onClick={() => hyprctl.switchxkblayout('current', 'next')}>
         {bind(hyprctl, 'layout').as((layout) => `${layout.toUpperCase()} ${icon}`)}
     </button>
 }

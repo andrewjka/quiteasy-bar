@@ -11,12 +11,6 @@ function get_current_layout(): layout {
     return (exec(['/bin/bash', '-c', command])).slice(0, 2);
 }
 
-function set_next_layout(): void {
-    const command = 'hyprctl switchxkblayout current next';
-
-    exec(['/bin/bash', '-c', command]);
-}
-
 @register({GTypeName: "Hyprctl"})
 class Hyprctl extends GObject.Object {
     static instance: Hyprctl;
@@ -29,27 +23,38 @@ class Hyprctl extends GObject.Object {
         return this.instance;
     }
 
-    #hyprland = Hyprland.get_default();
-    #current_layout: string = get_current_layout();
+
+    private hyprland = Hyprland.get_default();
+    private exec = (command: string) => exec(['/bin/bash', '-c', `hyprctl ${command}`]);
+
+    private current_layout: string = get_current_layout();
+
 
     @property(String)
     public get layout() {
-        return this.#current_layout;
+        return this.current_layout;
     }
 
-    public switch_layout() {
-        set_next_layout();
+    public switchxkblayout(device: 'current' | 'all' | string, cmd: 'next' | 'prev' | number) {
+        const command = `switchxkblayout ${device} ${cmd}`;
 
-        this.#current_layout = get_current_layout();
+        this.exec(command);
 
+        this.current_layout = get_current_layout();
         this.notify('layout');
-    }e
+    }
+
+    public dispatch(dispatcher: 'workspace', workspace: number) {
+        const command = `dispatch workspace ${workspace}`;
+
+        this.exec(command);
+    }
 
     public constructor() {
         super();
 
-        const listening_change_layout = this.#hyprland.connect('keyboard-layout', () => {
-            this.#current_layout = get_current_layout();
+        const listening_change_layout = this.hyprland.connect('keyboard-layout', () => {
+            this.current_layout = get_current_layout();
             this.notify('layout');
         });
     }

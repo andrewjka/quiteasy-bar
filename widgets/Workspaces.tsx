@@ -1,36 +1,71 @@
-import {bind} from "astal";
+import {bind, exec} from "astal";
 import Hyprland from "gi://AstalHyprland?version=0.1";
 import {Gtk} from "astal/gtk3";
-import GLib from "gi://GLib?version=2.0";
+import Hyprctl from "../services/Hyprctl";
 
-function Workspaces(): Gtk.Widget {
+// custom type for workspace
+interface Workspace {
+    id: number;
+    icon: string;
+}
+
+interface WorkspacesProps {
+    defaultWorkspaces: Workspace[];
+    defaultIcon: string;
+}
+
+function Workspaces(props: WorkspacesProps): Gtk.Widget {
     const hyprland: Hyprland.Hyprland = Hyprland.get_default()
+    const hyprctl: Hyprctl = Hyprctl.get_default();
 
-    const defaultIcon = '';
-    const specificIcons: Map<number, string> = new Map<number, string>()
-        .set(1, '')
-        .set(2, '')
-        .set(3, '')
-        .set(4, '');
+    // bindings
+    const _workspaces = bind(hyprland, "workspaces");
+    const _focusedWorkspace = bind(hyprland, "focusedWorkspace");
 
-    //bindings
-    const workspaces = bind(hyprland, "workspaces");
-    const focusedWorkspace = bind(hyprland, "focusedWorkspace");
+    // handlers
+    function OnClick(workspace_id: number) {
+        hyprctl.dispatch('workspace', workspace_id);
+    }
 
     return <box className="Workspaces-panel">
-        {workspaces.as(workspaces =>
-            workspaces
-                .sort((a, b) => a.id - b.id)
-                .map(workspace =>
-                    <button hexpand className={focusedWorkspace.as(focusedWorkspace =>
-                        focusedWorkspace == workspace ? "workspace active" : "workspace")}
-                            cursor="pointer"
-                            onClick={() => workspace.focus()}>
-                        <label className="workspace-icon">
-                            {specificIcons.get(workspace.id) ?? defaultIcon}
-                        </label>
-                    </button>
-                ))}
+        {_workspaces.as(_workspaces => {
+            const workspaces: Workspace[] = _workspaces.map(workspace => (
+                    {
+                        id: workspace.id,
+                        icon: props.defaultWorkspaces.find(default_workspace =>
+                            default_workspace.id == workspace.id
+                        )?.icon ?? props.defaultIcon
+                    }
+                )
+            );
+
+            // What's all this for anyway ?
+            // for default workspaces that are always displayed independently.
+            for (const default_workspace of props.defaultWorkspaces) {
+                const is_defined: boolean = workspaces.some(
+                    (workspace: Workspace) => workspace.id == default_workspace.id
+                );
+
+                if (!is_defined) {
+                    workspaces.push(default_workspace);
+                }
+            }
+
+            const sorted: Workspace[] = workspaces.sort(
+                (a, b) => a.id - b.id
+            );
+
+            return sorted.map(workspace =>
+                <button hexpand className={_focusedWorkspace.as(focusedWorkspace =>
+                    focusedWorkspace.id == workspace.id ? "workspace active" : "workspace")}
+                        cursor="pointer"
+                        onClick={() => OnClick(workspace.id)}>
+                    <label className="workspace-icon">
+                        {workspace.icon}
+                    </label>
+                </button>
+            )
+        })}
     </box>
 }
 
