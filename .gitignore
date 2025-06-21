@@ -1,5 +1,5 @@
-node_modules/
-@girs/
-.idea
+**/node_modules/
+**/@girs/
+**/.idea
 *.css.map
 *.css

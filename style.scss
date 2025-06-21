@@ -1,8 +1,6 @@
 // colors
 $fg-color: #{"@theme_fg_color"};
 $bg-color: #{"@theme_bg_color"};
-$bg-color-active: rgba(255, 255, 255, 0.94);
-$bg-color-inactive: rgba(255, 255, 255, 0.86);
 $accent-color: rgba(230, 230, 230, 1);
 // borders
 $border-color-active: rgba(153, 153, 153, 1);
@@ -20,31 +18,15 @@ $animation-speed-quick: 1.024s;
 
     // properties for each element
     * {
-        font-weight: normal;
-        font-family: 'Roboto';
-        font-size: 15px;
         animation-timing-function: cubic-bezier(0.05, 0.9, 0.1, 1.05);
         transition-timing-function: cubic-bezier(0.05, 0.9, 0.1, 1.05);
         transition-duration: $animation-speed-smooth;
-
-        // Resetting the default settings
-        color: $fg-color;
-        padding: 0;
-        border-radius: 0px;
-        background: transparent;
-
-        &:hover, &:active, &:checked, &:focus {
-            background-image: none;
-            box-shadow: none;
-            text-shadow: none;
-            -gtk-icon-effect: none;
-            opacity: 1;
-        }
 
         button {
             border-radius: $border-radius;
             padding: 4px;
             transition-duration: $animation-speed-quick;
+            background-color: transparent;
 
             &:hover {
                 background: transparent;
@@ -64,18 +46,19 @@ $animation-speed-quick: 1.024s;
 
     }
 
-    // technically these css-classes (Layout & Bar) should be one thing, but
-    // eventbox which allows use events can't have itself frame.
     .Layout {
         margin: 16px 16px 8px 16px;
         background: transparent;
+    }
+
+    .Bar {
         border-radius: $border-radius;
         box-shadow: 0 0 4px 3px rgba(26, 26, 26, 0.16);
     }
 
-    .Bar {
-        background: $bg-color;
+    .Bar-event {
         border-radius: $border-radius;
+        background: $bg-color;
         border: 1px solid $border-color-inactive;
         opacity: 0.86;
 
@@ -93,12 +76,6 @@ $animation-speed-quick: 1.024s;
     // panels
     .Group > * {
         margin: $vertical-padding-panel $horizontal-padding-panel;
-    }
-
-    .LogoFedora-panel {
-        font-size: 28px;
-        margin-left: 4px;
-        margin-right: 12px;
     }
 
     .Workspaces-panel {

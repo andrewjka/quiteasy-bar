@@ -4,9 +4,10 @@ import SlightUIBAR from "./widgets/Bar"
 
 App.start({
     css: style,
-    instanceName: 'Quiteasy-bar',
+    instanceName: 'quiteasy-bar',
     main() {
         App.get_monitors().map(SlightUIBAR)
     },
 });
 
+// f
