@@ -60,9 +60,7 @@ function Workspaces(props: WorkspacesProps): Gtk.Widget {
                     focusedWorkspace.id == workspace.id ? "workspace active" : "workspace")}
                         cursor="pointer"
                         onClick={() => OnClick(workspace.id)}>
-                    <label className="workspace-icon">
-                        {workspace.icon}
-                    </label>
+                    {workspace.icon}
                 </button>
             )
         })}

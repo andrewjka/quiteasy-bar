@@ -1,12 +1,12 @@
 import {Gtk} from "astal/gtk3";
 import {bind, exec, execAsync, Variable} from "astal";
-import {cpu_monitor} from "../constants/app_names";
 
 
 interface TemperatureProps {
     title: string;
     hwmon_path: string;
     interval: number;
+    OnClick: () => void;
 }
 
 function Temperature(props: TemperatureProps): Gtk.Widget {
@@ -17,17 +17,12 @@ function Temperature(props: TemperatureProps): Gtk.Widget {
         (out, prev) => parseInt(out)
     );
 
-    function OnClick() {
-        // opening monitor
-        execAsync(["/bin/bash", "-c", cpu_monitor]);
-    }
-
     return <button hexpand
                    className="Temperature-panel"
                    cursor="pointer"
                    onDestroy={() => temperature.drop()}
                    tooltipText={props.title}
-                   onClick={() => OnClick()}>
+                   onClick={() => props.OnClick()}>
         {bind(temperature).as(temperature => (temperature / 1000).toFixed(1) + icon)}
     </button>
 }

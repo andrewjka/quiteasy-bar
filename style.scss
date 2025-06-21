@@ -1,5 +1,6 @@
 // colors
-$fg-color: black;
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
 $bg-color-active: rgba(255, 255, 255, 0.94);
 $bg-color-inactive: rgba(255, 255, 255, 0.86);
 $accent-color: rgba(230, 230, 230, 1);
@@ -9,7 +10,7 @@ $border-color-inactive: rgba(193, 193, 193, 1);
 $border-radius: 8px;
 // margins
 $vertical-padding-panel: 6px;
-$horizontal-padding-panel: 1px;
+$horizontal-padding-panel: 2px;
 // animation
 $animation-speed-smooth: 1.536s;
 $animation-speed-quick: 1.024s;
@@ -27,7 +28,7 @@ $animation-speed-quick: 1.024s;
         transition-duration: $animation-speed-smooth;
 
         // Resetting the default settings
-        color: $fg-color;
+        color: #404040;
         padding: 0;
         border-radius: 0px;
         background: transparent;
@@ -41,7 +42,7 @@ $animation-speed-quick: 1.024s;
         }
 
         button {
-            border-radius: 8px;
+            border-radius: $border-radius;
             padding: 4px;
             transition-duration: $animation-speed-quick;
 
@@ -55,8 +56,7 @@ $animation-speed-quick: 1.024s;
                 background: $accent-color;
             }
 
-            &.active
-            {
+            &.active {
                 box-shadow: 0 0 1px 1px rgba(26, 26, 26, 0.16),
                 inset 0 0 2px 1px rgba(256, 256, 256, 0.16);
             }
@@ -74,13 +74,14 @@ $animation-speed-quick: 1.024s;
     }
 
     .Bar {
-        background: $bg-color-inactive;
+        background: $bg-color;
         border-radius: $border-radius;
         border: 1px solid $border-color-inactive;
+        opacity: 0.86;
 
         &:hover {
-            background: $bg-color-active;
             border: 1px solid $border-color-active;
+            opacity: 0.94;
         }
     }
 
@@ -96,16 +97,13 @@ $animation-speed-quick: 1.024s;
 
     .LogoFedora-panel {
         font-size: 28px;
+        margin-left: 4px;
         margin-right: 12px;
     }
 
     .Workspaces-panel {
         .workspace {
             margin-right: 6px;
-
-            .workspace-icon {
-                font-size: 16px;
-            }
         }
 
         .focused {
@@ -117,7 +115,7 @@ $animation-speed-quick: 1.024s;
             margin-left: 3px;
             margin-right: 3px;
 
-            .task-icon {
+            .icon {
                 font-size: 26px;
             }
 
@@ -126,13 +124,10 @@ $animation-speed-quick: 1.024s;
         }
     }
 
-    .Time-panel {
+    .DateTime-panel {
     }
 
-    .Date-panel {
-    }
-
-    .Power-panel {
+    .SystemMenu {
     }
 
     .Language-panel {

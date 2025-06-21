@@ -20,7 +20,7 @@ function Tasks(): JSX.Element {
                             cursor="pointer"
                             tooltipText={client.title}
                             onClick={() => client.focus()}>
-                        <icon className="task-icon"
+                        <icon className="icon"
                               gicon={GetAppIcon(client, 48)!}
                             // don't use icon,it's causing performance issues.
                         />
