@@ -28,7 +28,7 @@ $animation-speed-quick: 1.024s;
         transition-duration: $animation-speed-smooth;
 
         // Resetting the default settings
-        color: #404040;
+        color: $fg-color;
         padding: 0;
         border-radius: 0px;
         background: transparent;
