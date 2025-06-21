@@ -1,4 +1,4 @@
-A very simple bar that I try to put my heart into. There are no configuration files, the code I try to write simple and understandable, everyone can customize for themselves.
+A very simple bar that I try to put my heart into. There are no configuration files, the code I try to write simple and understandable, everyone can customize for themselves. Developed under the Colloid theme.
 
 In the plans:
 1. realize the change of theme
