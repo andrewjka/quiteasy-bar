@@ -18,4 +18,4 @@ everyone can customize for themselves. Developed under the Colloid theme.
 3. just run file 'quiteasy-bar' from the package
 
 ## Preview
-![image](https://github.com/user-attachments/assets/191fed0d-a5cb-44cc-bd49-c55f1c1b4fc0)
+![](/docs/images/desktop.png)
