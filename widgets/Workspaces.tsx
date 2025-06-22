@@ -56,8 +56,10 @@ function Workspaces(props: WorkspacesProps): Gtk.Widget {
             );
 
             return sorted.map(workspace =>
-                <button hexpand className={_focusedWorkspace.as(focusedWorkspace =>
-                    focusedWorkspace.id == workspace.id ? "workspace active" : "workspace")}
+                <button hexpand
+                        className={_focusedWorkspace.as(focusedWorkspace =>
+                            focusedWorkspace.id == workspace.id ? "workspace active" : "workspace"
+                        )}
                         cursor="pointer"
                         onClick={() => OnClick(workspace.id)}>
                     {workspace.icon}

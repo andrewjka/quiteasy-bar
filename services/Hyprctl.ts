@@ -1,5 +1,5 @@
 import GObject from "gi://GObject?version=2.0";
-import {exec, property, register} from "astal";
+import {exec, execAsync, property, register} from "astal";
 import Hyprland from "gi://AstalHyprland?version=0.1";
 
 type layout = string;
@@ -25,7 +25,7 @@ class Hyprctl extends GObject.Object {
 
 
     private hyprland = Hyprland.get_default();
-    private exec = (command: string) => exec(['/bin/bash', '-c', `hyprctl ${command}`]);
+    private exec = async (command: string) => execAsync(['/bin/bash', '-c', `hyprctl ${command}`]);
 
     private current_layout: string = get_current_layout();
 
@@ -35,19 +35,19 @@ class Hyprctl extends GObject.Object {
         return this.current_layout;
     }
 
-    public switchxkblayout(device: 'current' | 'all' | string, cmd: 'next' | 'prev' | number) {
+    public async switchxkblayout(device: 'current' | 'all' | string, cmd: 'next' | 'prev' | number) {
         const command = `switchxkblayout ${device} ${cmd}`;
 
-        this.exec(command);
+        await this.exec(command);
 
         this.current_layout = get_current_layout();
         this.notify('layout');
     }
 
-    public dispatch(dispatcher: 'workspace', workspace: number) {
+    public async dispatch(dispatcher: 'workspace', workspace: number): Promise<void> {
         const command = `dispatch workspace ${workspace}`;
 
-        this.exec(command);
+        await this.exec(command);
     }
 
     public constructor() {
